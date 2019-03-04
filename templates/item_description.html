@@ -1,0 +1,29 @@
+<html>
+
+<head>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<div class="header">
+  <a class="heading">Catalog App</a>
+  <div class="header-right">
+    {% if session['state'] %}
+       <a class="active" href="{{url_for('catalog_logout')}}">Logout</a>
+     {% else %}
+       <a class="active" href="{{url_for('catalog_login')}}">Login</a>
+      {% endif %} 
+  </div>
+</div>
+<div class="desc" >
+    <h2>{{item.title}}</h2>
+    <div>
+    <p>Description : {{item.description}}</p>
+    {% if session['editable'] %}
+    <p><a href="{{url_for('edit_item', item_name = item.title)}}">Edit</a> | <a href="{{url_for('delete_item', item_name = item.title)}}">Delete</a></p>
+    {% endif %}
+    </div>
+</div>
+</body>
+
+</html>

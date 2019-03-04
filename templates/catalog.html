@@ -1,0 +1,73 @@
+<html>
+
+<head>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+
+<!--MESSAGE FLASHING EXAMPLE -->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+
+<ul>
+{% for message in messages %}
+  <li><strong>{{message}}</strong></li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+
+<div class="header">
+  <a class="heading">Catalog App</a>
+  <div class="header-right">
+      {% if session['state']  %}
+       <a class="active" href="{{url_for('catalog_logout')}}">Logout</a>
+     {% else %}
+       <a class="active" href="{{url_for('catalog_login')}}">Login</a>
+       <!-- <a class="active" href="{{url_for('catalog_login')}}">Login</a> -->
+      {% endif %} 
+  </div>
+</div>
+
+
+
+
+
+<br><br>
+<br><br>
+ 
+
+<div class="column" >
+    <h2>Categories</h2>
+    {% for i in category %}
+    <div>
+    <p><a href="{{url_for('catalog_index', cat_name = i.name)}}">{{i.name}}</a></p>
+    </div>
+    {% endfor %}
+</div>
+
+
+<div class="column">
+    {% if session['state'] %}
+    <p><a href="{{url_for('add_item')}}">Add Item</a></p>
+     {% endif %} 
+    <h2>Latest Items</h2>
+    {% for i in items %}
+    {% for j in category %}
+       {% if i.cat_id == j.id %}
+        <div>
+        <p><a href="{{url_for('item_description', cat_name = j.name, item_name = i.title)}}">{{i.title}} ({{j.name}}) </a></p>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+</div>
+
+
+
+
+</body>
+
+</html>

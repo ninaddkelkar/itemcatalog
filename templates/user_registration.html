@@ -1,0 +1,33 @@
+<html>
+
+<head>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<body><h1> New User Registration </h1>
+<!--MESSAGE FLASHING EXAMPLE -->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+
+<ul>
+{% for message in messages %}
+  <li><strong>{{message}}</strong></li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+<form action="{{url_for('catalog_registration_newuser')}}" method = 'post'>
+  <p>UserName:</p>
+		<input type ='text' size='30' name='User Name'>
+  <p>Password:</p>
+		<input type ='password' size='30' name='Password'>
+  <p>Re-Enter Password:</p>
+		<input type ='password' size='30' name='Re-Enter Password'>  
+  <br><br>
+  <input type='submit' value='Register'>
+</form>
+</body>
+
+</html>

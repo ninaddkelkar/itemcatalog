@@ -1,0 +1,58 @@
+<html>
+
+<head>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<div class="header">
+  <a class="heading">Catalog App</a>
+  <div class="header-right">
+    {% if session['state'] %}
+       <a class="active" href="{{url_for('catalog_logout')}}">Logout</a>
+     {% else %}
+       <a class="active" href="{{url_for('catalog_login')}}">Login</a>
+      {% endif %} 
+  </div>
+</div>
+ 
+
+<div class="column" >
+    <h2>Categories</h2>
+    {% for i in categories %}
+    <div>
+    <p><a href="{{url_for('catalog_index', cat_name = i.name)}}">{{i.name}}</a></p>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="column">
+    <h2>{{category.name}} Items ({{items|length}} items)</h2>
+    {% for i in items %}
+        <div>
+            <p><a href="{{url_for('item_description', cat_name = category.name, item_name = i.title)}}">{{i.title}} ({{category.name}}) </a></p>
+        </div>
+        {% endfor %}
+</div>
+
+ <!--<div class="column" >
+    <h2>Categories</h2>
+    <ul>
+        <li>First item</li>
+        <li>Second item</li>
+        <li>Third item</li>
+    </ul>
+</div>
+
+<div class="column">
+    <h2>Second Column</h2>
+    <ul>
+        <li>First item</li>
+        <li>Second item</li>
+        <li>Third item</li>
+    </ul>
+</div> -->
+
+</body>
+
+</html>
